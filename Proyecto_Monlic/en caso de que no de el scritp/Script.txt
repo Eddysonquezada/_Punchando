@@ -1,0 +1,283 @@
+
+create database Proyecto_Monlic
+
+CREATE TABLE [dbo].[Departamentos] (
+    [IdDepartamento] INT          IDENTITY (1, 1) NOT NULL,
+    [Departamento]   VARCHAR (45) NULL,
+    [Estado]         VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdDepartamento] ASC));
+
+	CREATE TABLE [dbo].[Ciudades] (
+    [IdCiudad]       INT          IDENTITY (1, 1) NOT NULL,
+    [Ciudad]         VARCHAR (30) NULL,
+    [IdDepartamento] INT          NULL,
+    [Estado]         VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdCiudad] ASC),
+    FOREIGN KEY ([IdDepartamento]) REFERENCES [dbo].[Departamentos] ([IdDepartamento]));
+
+	
+	CREATE TABLE [dbo].[TiposDocumentos] (
+    [IdTipoD] INT          IDENTITY (1, 1) NOT NULL,
+    [Tipo]    VARCHAR (30) NULL,
+    PRIMARY KEY CLUSTERED ([IdTipoD] ASC));
+
+	
+
+CREATE TABLE [dbo].[Contactos] (
+    [IdContacto] INT          IDENTITY (1, 1) NOT NULL,
+    [Contacto]   VARCHAR (45) NULL,
+    [Documento]  INT          NULL,
+    [Telefono]   INT          NULL,
+    [IdTipoD]    INT          NULL,
+    [IdCiudad]   INT          NULL,
+    [Estado]     VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdContacto] ASC),
+    UNIQUE NONCLUSTERED ([Documento] ASC),
+    FOREIGN KEY ([IdTipoD]) REFERENCES [dbo].[TiposDocumentos] ([IdTipoD]),
+    FOREIGN KEY ([IdCiudad]) REFERENCES [dbo].[Ciudades] ([IdCiudad]));
+
+
+	CREATE TABLE [dbo].[TiposMovimientos] (
+    [IdTipoM]    INT          IDENTITY (1, 1) NOT NULL,
+    [Movimiento] VARCHAR (30) NULL,
+    [Estado]     VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdTipoM] ASC));
+
+	CREATE TABLE [dbo].[UnidadMedidas] (
+    [IdUnidad] INT          IDENTITY (1, 1) NOT NULL,
+    [Unidad]   VARCHAR (30) NULL,
+    [Estado]   VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdUnidad] ASC));
+
+
+	CREATE TABLE [dbo].[Materiales] (
+    [IdMaterial]  INT          IDENTITY (1, 1) NOT NULL,
+    [Material]    VARCHAR (30) NULL,
+    [Descripcion] VARCHAR (45) NULL,
+    [Existencia]  INT          NULL,
+    [Precio]      INT          NULL,
+    [IdUnidad]    INT          NULL,
+    [Estado]      VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdMaterial] ASC),
+    FOREIGN KEY ([IdUnidad]) REFERENCES [dbo].[UnidadMedidas] ([IdUnidad]));
+
+	CREATE TABLE [dbo].[Movimientos] (
+    [IdMovimiento] INT          IDENTITY (1, 1) NOT NULL,
+    [Fecha]        DATE         NULL,
+    [IdTipoM]      INT          NULL,
+    [IdContacto]   INT          NULL,
+    [Estado]       VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdMovimiento] ASC),
+    FOREIGN KEY ([IdContacto]) REFERENCES [dbo].[Contactos] ([IdContacto]),
+    FOREIGN KEY ([IdTipoM]) REFERENCES [dbo].[TiposMovimientos] ([IdTipoM]));
+
+	CREATE TABLE [dbo].[Entradas_Salidas] (
+    [IdE_S]        INT          IDENTITY (1, 1) NOT NULL,
+    [Precio]       INT          NULL,
+    [Cantidad]     INT          NULL,
+    [IdMaterial]   INT          NULL,
+    [IdMovimiento] INT          NULL,
+    [Estado]       VARCHAR (30) DEFAULT ('Activo') NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdE_S] ASC),
+    FOREIGN KEY ([IdMaterial]) REFERENCES [dbo].[Materiales] ([IdMaterial]),
+    FOREIGN KEY ([IdMovimiento]) REFERENCES [dbo].[Movimientos] ([IdMovimiento]));
+
+
+
+
+
+--------------------------------------------------------------------------
+				PROCEDURE
+--------------------------------------------------------------------------
+
+CREATE procedure [dbo].[editarcontactos]
+@Idcontacto int,
+@Contacto varchar(30),
+@Documento int,
+@Telefono int,
+@Idtipod int,
+@IdCiudad int
+as
+begin
+update Contactos set  Documento=@Documento,Contacto=@Contacto,Telefono=@Telefono,IdTipoD=@Idtipod,IdCiudad=IdCiudad
+where IdContacto=@Idcontacto
+end
+
+
+create procedure estado_ciudad
+@Idciudad int
+as
+begin
+if((select estado from Ciudades where IdCiudad=@Idciudad)='Activo') 
+begin
+update Ciudades
+set Estado='Inactivo'
+where IdCiudad=@Idciudad
+end
+else if((select estado from Ciudades where IdCiudad=@Idciudad)='Inactivo')
+begin
+update Ciudades
+set Estado='Activo'
+where IdCiudad=@Idciudad
+end 
+end
+
+
+
+
+
+
+
+create procedure estado_contacto
+@Idcontacto int
+as
+begin
+if((select estado from Contactos where IdContacto=@Idcontacto)='Activo') 
+begin
+update Contactos
+set Estado='Inactivo'
+where IdContacto=@Idcontacto
+end
+else if((select estado from Contactos where IdContacto=@Idcontacto)='Inactivo')
+begin
+update Contactos
+set Estado='Activo'
+where IdContacto=@Idcontacto
+end 
+end
+
+
+create procedure estado_material
+@Idmaterial int
+as
+begin
+if((select estado from Materiales where IdMaterial=@Idmaterial)='Activo') 
+begin
+update Materiales
+set Estado='Inactivo'
+where IdMaterial=@Idmaterial
+end
+else if((select estado from Materiales where IdMaterial=@Idmaterial)='Inactivo')
+begin
+update Materiales
+set Estado='Activo'
+where IdMaterial=@Idmaterial
+end 
+end
+
+
+create procedure estado_Medida
+@IdUnidad int
+as
+begin
+if((select estado from UnidadMedidas where IdUnidad=@IdUnidad)='Activo') 
+begin
+update UnidadMedidas
+set Estado='Inactivo'
+where IdUnidad=@IdUnidad
+end
+else if((select estado from UnidadMedidas where IdUnidad=@IdUnidad)='Inactivo')
+begin
+update UnidadMedidas
+set Estado='Activo'
+where IdUnidad=@IdUnidad
+end 
+end
+
+
+create procedure unidad_activa
+as
+Select * from UnidadMedidas where Estado = 'Activo'
+
+create procedure unidad_inactiva
+as
+Select * from UnidadMedidas where Estado = 'Inactivo'
+
+
+create procedure validar_contactos
+@Contacto varchar(45),
+@Documento int,
+@Telefono int,
+@IdTipo int,
+@IdCiudad int
+as
+begin
+if((select count(*) from Contactos where Documento=@Documento)=0)
+begin
+insert into Contactos(Contacto,Documento,Telefono,IdTipoD,IdCiudad) values (STUFF (@Contacto, 1, 1,(UPPER(left(@Contacto,1)))),@Documento,@Telefono,@IdTipo,@IdCiudad)
+end
+else if((select count(*) from Contactos where Documento=@Documento)=0)
+begin
+return 1
+end
+end
+
+
+create procedure validarrepetidos
+@Unidad varchar(30)
+as
+begin
+if((select count(*) from UnidadMedidas where Unidad=@Unidad)=0)
+begin
+insert into UnidadMedidas(Unidad) values (STUFF (@Unidad, 1, 1,(UPPER(left(@Unidad,1)))))
+end
+else if((select count(*) from UnidadMedidas where Unidad=@Unidad)>=1)
+begin
+return 1
+end
+end
+
+
+create procedure validarrepetidos_material
+@Material varchar(30),
+@Descripcion varchar(30),
+@Existencia int,
+@Precio int,
+@IdUnidad int
+as
+begin
+if((select count(*) from Materiales where Material=@Material)=0)
+begin
+insert into Materiales(Material,Descripcion,Existencia,Precio,IdUnidad) values (STUFF (@Material, 1, 1,(UPPER(left(@Material,1)))),@Descripcion,@Existencia,@Precio,@IdUnidad)
+end
+else if((select count(*) from Materiales where Material=@Material)=0)
+begin
+return 1
+end
+end
+
+
+
+CREATE procedure [dbo].[validarrepetidoscontactos]
+@Contacto varchar(30),
+@Documento int,
+@Telefono int,
+@Idtipod int,
+@IdCiudad int
+as
+begin
+if((select count(*) from Contactos where Documento=@Documento)=0)
+begin
+insert into Contactos(Contacto,Documento,Telefono,IdTipoD,IdCiudad) values (STUFF (@Contacto, 1, 1,(UPPER(left(@Contacto,1)))),@Documento,@Telefono,@Idtipod,@IdCiudad)
+end
+else if((select count(*) from Contactos where Contacto=@Contacto and Documento=@Documento)=0)
+begin
+return 1
+end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

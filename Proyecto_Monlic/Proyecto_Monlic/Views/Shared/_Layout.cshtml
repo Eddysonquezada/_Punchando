@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <script src=" https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <center>
+
+                    @Html.ActionLink("MONLIC", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand", style = "font-size: 300%;" })
+
+                </center>
+            </div>
+
+
+            <div class="navbar-collapse collapse">
+
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+
+    </div>
+
+    @RenderBody()
+    <hr />
+
+    @Html.Partial("_Footer")
+
+
+    <script src="~/Content/js/vendor/jquery-1.11.2.min.js"></script>
+  
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Content/js/vendor/jquery.dataTables.js"></script>
+    <script src="~/Content/js/vendor/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+   
+   
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+

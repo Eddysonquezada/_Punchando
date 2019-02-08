@@ -1,0 +1,57 @@
+create table MovimientoESA(
+IdMovimientoESA int primary key identity (1,1),
+Fecha date,
+Precio int,
+Cantidad int,
+IdMaterial int,
+IdTipoM int,
+IdContacto int,
+Estado varchar(30) not null default 'Activo',
+Foreign key (IdContacto) References Contactos (IdContacto),
+Foreign key (IdTipoM)  References TiposMovimientos(IdTipoM),
+Foreign key (IdMaterial) References Materiales (IdMaterial))
+
+create procedure StockManage 
+@idTipoM int,
+@Cantidad int,
+@idMaterial int
+as
+begin
+if @idTipoM = 1
+begin 
+update Materiales set Existencia= Existencia + @Cantidad
+where @idMaterial = IdMaterial
+end
+else if @idTipoM = 2
+begin
+update Materiales set Existencia= Existencia - @Cantidad
+where @idMaterial = IdMaterial
+end
+end
+
+EXEC StockManage @idTipoM = 2, @Cantidad= 5, @idMaterial= 1
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+create procedure StockManage2 
+@idTipoM int,
+@Cantidad int,
+@idMaterial int,
+@Fecha date,
+@Precio int,
+@IdContacto int
+as
+begin
+insert into MovimientoESA values (@Fecha,@Precio,@Cantidad,@idMaterial,@idTipoM,@IdContacto,'Activo')
+if @idTipoM = 1
+begin
+update Materiales set Existencia= Existencia + @Cantidad
+where @idMaterial = IdMaterial
+end
+else if @idTipoM = 2
+begin
+update Materiales set Existencia= Existencia - @Cantidad
+where @idMaterial = IdMaterial
+end
+end

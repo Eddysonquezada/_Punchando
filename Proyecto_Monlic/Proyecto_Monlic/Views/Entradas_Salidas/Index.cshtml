@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Proyecto_Monlic.Models.Entradas_Salidas>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Materiales.Material)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movimientos.Estado)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Materiales.Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movimientos.Estado)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.IdE_S }) |
+                @Html.ActionLink("Details", "Details", new { id=item.IdE_S }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.IdE_S })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
