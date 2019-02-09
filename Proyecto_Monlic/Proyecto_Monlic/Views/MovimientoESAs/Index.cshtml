@@ -11,86 +11,93 @@
 
     <br /><br /><br /><br />
     <p>
-        <a class="btn btn-info" @Html.ActionLink("Nuevo Movimiento", "Create")
+        <a class="btn btn-info" @Html.ActionLink("Nuevo Movimiento", "Create")></a>
     </p>
     <div class="card mb-3">
         <div class="card-header">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
+                    <div class="scroller">
+                        <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
 
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Materiales.Material)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Cantidad)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Precio)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Fecha)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Contactos.Contacto)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.TiposMovimientos.Movimiento)
-                                </th>
-                                @*<th>
-                                    @Html.DisplayNameFor(model => model.Estado)
-                                </th>*@
 
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
+                                    @*<th>
+                                        No.Factura
+                                    </th>*@
+                                    <th>
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        Cliente
+                                    </th>
+                                    <th>
+                                        Tipo Movimiento
+                                    </th>
+                                    @*<th>
+                                        Sub Total
+                                    </th>
+                                    <th>Cargos</th>
+                                    <th>Descuentos</th>*@
+                                    <th>Total</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                            <tr>
-                                
-                                <td>
-                                    <font size="3">   @Html.DisplayFor(modelItem => item.Materiales.Material) </font>
-                                </td>
-                                <td>
-                                    <font size="3">  @Html.DisplayFor(modelItem => item.Cantidad) </font>
-                                </td>
-                                <td>
-                                    <font size="3">   @Html.DisplayFor(modelItem => item.Precio) </font>
-                                </td>
-                                <td>
-                                    <font size="3">   @Html.DisplayFor(modelItem => item.Fecha) </font>
-                                </td>
-                                <td>
-                                    <font size="3">   @Html.DisplayFor(modelItem => item.Contactos.Contacto) </font>
-                                </td>
-                                <td>
-                                    <font size="3">   @Html.DisplayFor(modelItem => item.TiposMovimientos.Movimiento) </font>
-                                </td>
-                                @*<td>
-                                     <font size="3">  @Html.DisplayFor(modelItem => item.Estado) </font>
-                                 </td>*@
-                                <td>
-                                    <form method="post" action='@Url.Action("Estado", "MovimientoESAs",new { id = item.IdMovimientoESA })'>
-                                        <input type="submit" value="Estado" class="btn btn-danger" onclick="cam()" />
-                                        @Html.ActionLink("Editar", "Edit", new { id = item.IdMovimientoESA }, new { @class = "btn btn-success" })
+                            <tbody>
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr style="font-size: large">
 
+                                            @*<td>
+                                                @Html.DisplayFor(modelItem => item.IdMovimientoESA)
+                                            </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Fecha)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Contactos.Contacto)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TiposMovimientos.Movimiento)
 
-                                        @Html.AntiForgeryToken()
-                                    </form>
-                                </td>
-                            </tr>
-                            }
+                                            </td>
+                                            @*<td>
+                                                @Html.DisplayFor(modelItem => item.SubTotalGeneral)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CargosGenerales)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DescuentosGenerales)
+                                            </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TotalGeneral)
+                                            </td>
+                                            <td>
 
+                                                @Html.ActionLink("Detalle de Factura", "Details", new { id = item.IdMovimientoESA }, new { @class = "btn btn-success" })
 
-                        <tbody>
-                    </table>
+                                                <form method="post" action='@Url.Action("Estado", "MovimientoESAs", new {id = item.IdMovimientoESA})'>
+                                                    <input type="submit" value="Estado" class="btn btn-danger" onclick="cam()" />
+                                                    @Html.ActionLink("Editar", "Edit", new { id = item.IdMovimientoESA }, new { @class = "btn btn-warning" })
 
 
+                                                    @Html.AntiForgeryToken()
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            <tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
             <script>

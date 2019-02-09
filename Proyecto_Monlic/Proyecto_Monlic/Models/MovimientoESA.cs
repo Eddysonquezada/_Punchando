@@ -14,17 +14,25 @@ namespace Proyecto_Monlic.Models
     
     public partial class MovimientoESA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MovimientoESA()
+        {
+            this.MovimientoESADet = new HashSet<MovimientoESADet>();
+        }
+    
         public int IdMovimientoESA { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<int> Precio { get; set; }
-        public Nullable<int> Cantidad { get; set; }
-        public Nullable<int> IdMaterial { get; set; }
         public Nullable<int> IdTipoM { get; set; }
         public Nullable<int> IdContacto { get; set; }
         public string Estado { get; set; }
+        public Nullable<decimal> SubTotalGeneral { get; set; }
+        public Nullable<decimal> CargosGenerales { get; set; }
+        public Nullable<decimal> DescuentosGenerales { get; set; }
+        public Nullable<decimal> TotalGeneral { get; set; }
     
         public virtual Contactos Contactos { get; set; }
-        public virtual Materiales Materiales { get; set; }
         public virtual TiposMovimientos TiposMovimientos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MovimientoESADet> MovimientoESADet { get; set; }
     }
 }

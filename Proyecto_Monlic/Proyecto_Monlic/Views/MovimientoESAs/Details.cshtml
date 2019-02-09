@@ -1,0 +1,121 @@
+﻿@model Proyecto_Monlic.Models.MovimientoView
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+ 
+    <div class="form-horizontal NoEditable">
+        <h4>Detalle de Movimientos</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdMovimientoESA)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.IdTipoM, "IdTipoM", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("IdTipoM", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdTipoM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdContacto, "IdContacto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("IdContacto", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdContacto, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubTotalGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.SubTotalGeneral, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubTotalGeneral, "", new { @class = "text-danger NoEditable" })
+            </div>
+
+            @Html.LabelFor(model => model.CargosGenerales, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.CargosGenerales, new { htmlAttributes = new { @class = "form-control NoEditable" } })
+                @Html.ValidationMessageFor(model => model.CargosGenerales, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.DescuentosGenerales, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.DescuentosGenerales, new { htmlAttributes = new { @class = "form-control NoEditable" } })
+                @Html.ValidationMessageFor(model => model.DescuentosGenerales, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.TotalGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.TotalGeneral, new { htmlAttributes = new { @class = "form-control NoEditable" } })
+                @Html.ValidationMessageFor(model => model.TotalGeneral, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h2>Materiales en la Factura</h2>
+
+    
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Material</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Sub Total</th>
+                <th>Cargo</th>
+                <th>Descuento</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model != null && Model.MovimientoESADet != null && Model.MovimientoESADet.Count > 0)
+            {
+                foreach (var item in Model.MovimientoESADet)
+                {
+                    <tr>
+                        <td> @Html.DisplayFor(modelItem => item.Materiales.Material)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Materiales.Precio)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SubTotal)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Cargos)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Descuentos)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                        
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+
+
+    </div>
+ 
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var items = [];
+        $(document).ready(function () {
+          
+            $('input').prop('readonly', true);
+        });
+    </script>
+
+}
