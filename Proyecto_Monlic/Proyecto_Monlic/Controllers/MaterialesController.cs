@@ -12,7 +12,7 @@ namespace Proyecto_Monlic.Controllers
 {
     public class MaterialesController : Controller
     {
-        private BDMonlic1Entities db = new BDMonlic1Entities();
+        private BDMonlic1Entities2 db = new BDMonlic1Entities2();
         int r;
         // GET: Materiales
         public ActionResult Index()

@@ -245,18 +245,13 @@
     <Compile Include="Models\MovimientoESA.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MovimientoESADet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Movimientos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\MovimientoView.cs" />
     <Compile Include="Models\TiposDocumentos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -418,7 +413,7 @@
     <Content Include="Views\Ciudades\Details.cshtml" />
     <Content Include="Views\Ciudades\Edit.cshtml" />
     <Content Include="Views\Ciudades\Index.cshtml" />
-    <Content Include="Views\MovimientoESAs\Create.cshtml" />
+    <Content Include="Views\MovimientoESAs\Createxxx.cshtml" />
     <Content Include="Views\MovimientoESAs\Edit.cshtml" />
     <Content Include="Views\MovimientoESAs\Index.cshtml" />
     <Content Include="Views\Entradas_Salidas\Create.cshtml" />
@@ -431,6 +426,8 @@
     <Content Include="Views\Movimientos\Details.cshtml" />
     <Content Include="Views\Movimientos\Edit.cshtml" />
     <Content Include="Views\Movimientos\Index.cshtml" />
+    <Content Include="Views\MovimientoESAs\Create.cshtml" />
+    <Content Include="Views\MovimientoESAs\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

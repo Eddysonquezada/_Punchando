@@ -14,7 +14,7 @@ namespace Proyecto_Monlic.Controllers
     public class UnidadMedidasController : Controller
 
     {
-        private BDMonlic1Entities db = new BDMonlic1Entities();
+        private BDMonlic1Entities2 db = new BDMonlic1Entities2();
         int r;
 
         // GET: UnidadMedidas

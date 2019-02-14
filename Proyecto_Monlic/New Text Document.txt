@@ -1,1 +1,0 @@
-  <add name="DefaultConnection" connectionString="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-Proyecto_Monlic-20181031084432.mdf;Initial Catalog=aspnet-Proyecto_Monlic-20181031084432;Integrated Security=True" providerName="System.Data.SqlClient" />

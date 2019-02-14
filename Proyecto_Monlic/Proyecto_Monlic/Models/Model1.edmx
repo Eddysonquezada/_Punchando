@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BDMonlic1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BDMonlic1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ciudades">
           <Key>
             <PropertyRef Name="IdCiudad" />
@@ -63,12 +63,26 @@
           </Key>
           <Property Name="IdMovimientoESA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fecha" Type="date" />
-          <Property Name="Precio" Type="int" />
-          <Property Name="Cantidad" Type="int" />
-          <Property Name="IdMaterial" Type="int" />
           <Property Name="IdTipoM" Type="int" />
           <Property Name="IdContacto" Type="int" />
           <Property Name="Estado" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SubTotalGeneral" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CargosGenerales" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DescuentosGenerales" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGeneral" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="MovimientoESADet">
+          <Key>
+            <PropertyRef Name="IdMovimientoESADet" />
+          </Key>
+          <Property Name="IdMovimientoESADet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMovimientoESA" Type="int" />
+          <Property Name="IdMaterial" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="SubTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Cargos" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Descuentos" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Movimientos">
           <Key>
@@ -79,16 +93,6 @@
           <Property Name="IdTipoM" Type="int" />
           <Property Name="IdContacto" Type="int" />
           <Property Name="Estado" Type="varchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TiposDocumentos">
           <Key>
@@ -113,7 +117,7 @@
           <Property Name="Unidad" Type="varchar" MaxLength="30" />
           <Property Name="Estado" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Ciudades__IdDepa__276EDEB3">
+        <Association Name="FK__Ciudades__IdDepa__3E52440B">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="0..1" />
           <End Role="Ciudades" Type="Self.Ciudades" Multiplicity="*" />
           <ReferentialConstraint>
@@ -125,7 +129,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Contactos__IdCiu__2F10007B">
+        <Association Name="FK__Contactos__IdCiu__3F466844">
           <End Role="Ciudades" Type="Self.Ciudades" Multiplicity="0..1" />
           <End Role="Contactos" Type="Self.Contactos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,7 +141,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Contactos__IdTip__2E1BDC42">
+        <Association Name="FK__Contactos__IdTip__403A8C7D">
           <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="0..1" />
           <End Role="Contactos" Type="Self.Contactos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -173,7 +177,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Materiale__IdUni__38996AB5">
+        <Association Name="FK__Materiale__IdUni__4316F928">
           <End Role="UnidadMedidas" Type="Self.UnidadMedidas" Multiplicity="0..1" />
           <End Role="Materiales" Type="Self.Materiales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,19 +189,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimient__IdCon__3C69FB99">
-          <End Role="Contactos" Type="Self.Contactos" Multiplicity="0..1" />
-          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contactos">
-              <PropertyRef Name="IdContacto" />
-            </Principal>
-            <Dependent Role="Movimientos">
-              <PropertyRef Name="IdContacto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Movimient__IdCon__5DCAEF64">
+        <Association Name="FK__Movimient__IdCon__440B1D61">
           <End Role="Contactos" Type="Self.Contactos" Multiplicity="0..1" />
           <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,39 +201,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimient__IdMat__5FB337D6">
-          <End Role="Materiales" Type="Self.Materiales" Multiplicity="0..1" />
+        <Association Name="FK__Movimient__IdCon__46E78A0C">
+          <End Role="Contactos" Type="Self.Contactos" Multiplicity="0..1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contactos">
+              <PropertyRef Name="IdContacto" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IdContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimient__IdTip__45F365D3">
+          <End Role="TiposMovimientos" Type="Self.TiposMovimientos" Multiplicity="0..1" />
           <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposMovimientos">
+              <PropertyRef Name="IdTipoM" />
+            </Principal>
+            <Dependent Role="MovimientoESA">
+              <PropertyRef Name="IdTipoM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimient__IdTip__47DBAE45">
+          <End Role="TiposMovimientos" Type="Self.TiposMovimientos" Multiplicity="0..1" />
+          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposMovimientos">
+              <PropertyRef Name="IdTipoM" />
+            </Principal>
+            <Dependent Role="Movimientos">
+              <PropertyRef Name="IdTipoM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovimientoESADet_MovimientoESA">
+          <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="0..1" />
+          <End Role="MovimientoESADet" Type="Self.MovimientoESADet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovimientoESA">
+              <PropertyRef Name="IdMovimientoESA" />
+            </Principal>
+            <Dependent Role="MovimientoESADet">
+              <PropertyRef Name="IdMovimientoESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Materiales">
+          <End Role="Materiales" Type="Self.Materiales" Multiplicity="0..1" />
+          <End Role="MovimientoESADet" Type="Self.MovimientoESADet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materiales">
               <PropertyRef Name="IdMaterial" />
             </Principal>
-            <Dependent Role="MovimientoESA">
+            <Dependent Role="MovimientoESADet">
               <PropertyRef Name="IdMaterial" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Movimient__IdTip__3D5E1FD2">
-          <End Role="TiposMovimientos" Type="Self.TiposMovimientos" Multiplicity="0..1" />
-          <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposMovimientos">
-              <PropertyRef Name="IdTipoM" />
-            </Principal>
-            <Dependent Role="Movimientos">
-              <PropertyRef Name="IdTipoM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Movimient__IdTip__5EBF139D">
-          <End Role="TiposMovimientos" Type="Self.TiposMovimientos" Multiplicity="0..1" />
-          <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposMovimientos">
-              <PropertyRef Name="IdTipoM" />
-            </Principal>
-            <Dependent Role="MovimientoESA">
-              <PropertyRef Name="IdTipoM" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -265,37 +281,6 @@
         <Function Name="estado_Medida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUnidad" Type="int" Mode="In" />
         </Function>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="StockManage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idTipoM" Type="int" Mode="In" />
           <Parameter Name="Cantidad" Type="int" Mode="In" />
@@ -342,20 +327,20 @@
           <EntitySet Name="Entradas_Salidas" EntityType="Self.Entradas_Salidas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Materiales" EntityType="Self.Materiales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovimientoESA" EntityType="Self.MovimientoESA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovimientoESADet" EntityType="Self.MovimientoESADet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movimientos" EntityType="Self.Movimientos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposDocumentos" EntityType="Self.TiposDocumentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposMovimientos" EntityType="Self.TiposMovimientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadMedidas" EntityType="Self.UnidadMedidas" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Ciudades__IdDepa__276EDEB3" Association="Self.FK__Ciudades__IdDepa__276EDEB3">
+          <AssociationSet Name="FK__Ciudades__IdDepa__3E52440B" Association="Self.FK__Ciudades__IdDepa__3E52440B">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Ciudades" EntitySet="Ciudades" />
           </AssociationSet>
-          <AssociationSet Name="FK__Contactos__IdCiu__2F10007B" Association="Self.FK__Contactos__IdCiu__2F10007B">
+          <AssociationSet Name="FK__Contactos__IdCiu__3F466844" Association="Self.FK__Contactos__IdCiu__3F466844">
             <End Role="Ciudades" EntitySet="Ciudades" />
             <End Role="Contactos" EntitySet="Contactos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Contactos__IdTip__2E1BDC42" Association="Self.FK__Contactos__IdTip__2E1BDC42">
+          <AssociationSet Name="FK__Contactos__IdTip__403A8C7D" Association="Self.FK__Contactos__IdTip__403A8C7D">
             <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
             <End Role="Contactos" EntitySet="Contactos" />
           </AssociationSet>
@@ -367,32 +352,37 @@
             <End Role="Movimientos" EntitySet="Movimientos" />
             <End Role="Entradas_Salidas" EntitySet="Entradas_Salidas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Materiale__IdUni__38996AB5" Association="Self.FK__Materiale__IdUni__38996AB5">
+          <AssociationSet Name="FK__Materiale__IdUni__4316F928" Association="Self.FK__Materiale__IdUni__4316F928">
             <End Role="UnidadMedidas" EntitySet="UnidadMedidas" />
             <End Role="Materiales" EntitySet="Materiales" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdCon__3C69FB99" Association="Self.FK__Movimient__IdCon__3C69FB99">
-            <End Role="Contactos" EntitySet="Contactos" />
-            <End Role="Movimientos" EntitySet="Movimientos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdCon__5DCAEF64" Association="Self.FK__Movimient__IdCon__5DCAEF64">
+          <AssociationSet Name="FK__Movimient__IdCon__440B1D61" Association="Self.FK__Movimient__IdCon__440B1D61">
             <End Role="Contactos" EntitySet="Contactos" />
             <End Role="MovimientoESA" EntitySet="MovimientoESA" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdMat__5FB337D6" Association="Self.FK__Movimient__IdMat__5FB337D6">
+          <AssociationSet Name="FK__Movimient__IdCon__46E78A0C" Association="Self.FK__Movimient__IdCon__46E78A0C">
+            <End Role="Contactos" EntitySet="Contactos" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimient__IdTip__45F365D3" Association="Self.FK__Movimient__IdTip__45F365D3">
+            <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
+            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimient__IdTip__47DBAE45" Association="Self.FK__Movimient__IdTip__47DBAE45">
+            <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
+            <End Role="Movimientos" EntitySet="Movimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovimientoESADet_MovimientoESA" Association="Self.FK_MovimientoESADet_MovimientoESA">
+            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
+            <End Role="MovimientoESADet" EntitySet="MovimientoESADet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Materiales" Association="Self.FK_Table_1_Materiales">
             <End Role="Materiales" EntitySet="Materiales" />
-            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdTip__3D5E1FD2" Association="Self.FK__Movimient__IdTip__3D5E1FD2">
-            <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
-            <End Role="Movimientos" EntitySet="Movimientos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdTip__5EBF139D" Association="Self.FK__Movimient__IdTip__5EBF139D">
-            <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
-            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
+            <End Role="MovimientoESADet" EntitySet="MovimientoESADet" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BDMonlic1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -404,8 +394,8 @@
           <Property Name="Ciudad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="IdDepartamento" Type="Int32" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Departamentos" Relationship="Self.FK__Ciudades__IdDepa__276EDEB3" FromRole="Ciudades" ToRole="Departamentos" />
-          <NavigationProperty Name="Contactos" Relationship="Self.FK__Contactos__IdCiu__2F10007B" FromRole="Ciudades" ToRole="Contactos" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK__Ciudades__IdDepa__3E52440B" FromRole="Ciudades" ToRole="Departamentos" />
+          <NavigationProperty Name="Contactos" Relationship="Self.FK__Contactos__IdCiu__3F466844" FromRole="Ciudades" ToRole="Contactos" />
         </EntityType>
         <EntityType Name="Contactos">
           <Key>
@@ -418,10 +408,10 @@
           <Property Name="IdTipoD" Type="Int32" />
           <Property Name="IdCiudad" Type="Int32" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Ciudades" Relationship="Self.FK__Contactos__IdCiu__2F10007B" FromRole="Contactos" ToRole="Ciudades" />
-          <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK__Contactos__IdTip__2E1BDC42" FromRole="Contactos" ToRole="TiposDocumentos" />
-          <NavigationProperty Name="Movimientos" Relationship="Self.FK__Movimient__IdCon__3C69FB99" FromRole="Contactos" ToRole="Movimientos" />
-          <NavigationProperty Name="MovimientoESA" Relationship="BDMonlic1Model.FK__Movimient__IdCon__5DCAEF64" FromRole="Contactos" ToRole="MovimientoESA" />
+          <NavigationProperty Name="Ciudades" Relationship="Self.FK__Contactos__IdCiu__3F466844" FromRole="Contactos" ToRole="Ciudades" />
+          <NavigationProperty Name="TiposDocumentos" Relationship="Self.FK__Contactos__IdTip__403A8C7D" FromRole="Contactos" ToRole="TiposDocumentos" />
+          <NavigationProperty Name="MovimientoESA" Relationship="Self.FK__Movimient__IdCon__440B1D61" FromRole="Contactos" ToRole="MovimientoESA" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK__Movimient__IdCon__46E78A0C" FromRole="Contactos" ToRole="Movimientos" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -430,7 +420,7 @@
           <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Departamento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Ciudades" Relationship="Self.FK__Ciudades__IdDepa__276EDEB3" FromRole="Departamentos" ToRole="Ciudades" />
+          <NavigationProperty Name="Ciudades" Relationship="Self.FK__Ciudades__IdDepa__3E52440B" FromRole="Departamentos" ToRole="Ciudades" />
         </EntityType>
         <EntityType Name="Entradas_Salidas">
           <Key>
@@ -457,8 +447,40 @@
           <Property Name="IdUnidad" Type="Int32" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Entradas_Salidas" Relationship="Self.FK__Entradas___IdMat__412EB0B6" FromRole="Materiales" ToRole="Entradas_Salidas" />
-          <NavigationProperty Name="UnidadMedidas" Relationship="Self.FK__Materiale__IdUni__38996AB5" FromRole="Materiales" ToRole="UnidadMedidas" />
-          <NavigationProperty Name="MovimientoESA" Relationship="BDMonlic1Model.FK__Movimient__IdMat__5FB337D6" FromRole="Materiales" ToRole="MovimientoESA" />
+          <NavigationProperty Name="UnidadMedidas" Relationship="Self.FK__Materiale__IdUni__4316F928" FromRole="Materiales" ToRole="UnidadMedidas" />
+          <NavigationProperty Name="MovimientoESADet" Relationship="Self.FK_Table_1_Materiales" FromRole="Materiales" ToRole="MovimientoESADet" />
+        </EntityType>
+        <EntityType Name="MovimientoESA">
+          <Key>
+            <PropertyRef Name="IdMovimientoESA" />
+          </Key>
+          <Property Name="IdMovimientoESA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="IdTipoM" Type="Int32" />
+          <Property Name="IdContacto" Type="Int32" />
+          <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubTotalGeneral" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CargosGenerales" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DescuentosGenerales" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalGeneral" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Contactos" Relationship="Self.FK__Movimient__IdCon__440B1D61" FromRole="MovimientoESA" ToRole="Contactos" />
+          <NavigationProperty Name="TiposMovimientos" Relationship="Self.FK__Movimient__IdTip__45F365D3" FromRole="MovimientoESA" ToRole="TiposMovimientos" />
+          <NavigationProperty Name="MovimientoESADet" Relationship="Self.FK_MovimientoESADet_MovimientoESA" FromRole="MovimientoESA" ToRole="MovimientoESADet" />
+        </EntityType>
+        <EntityType Name="MovimientoESADet">
+          <Key>
+            <PropertyRef Name="IdMovimientoESADet" />
+          </Key>
+          <Property Name="IdMovimientoESADet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMovimientoESA" Type="Int32" />
+          <Property Name="IdMaterial" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Cargos" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Descuentos" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Materiales" Relationship="Self.FK_Table_1_Materiales" FromRole="MovimientoESADet" ToRole="Materiales" />
+          <NavigationProperty Name="MovimientoESA" Relationship="Self.FK_MovimientoESADet_MovimientoESA" FromRole="MovimientoESADet" ToRole="MovimientoESA" />
         </EntityType>
         <EntityType Name="Movimientos">
           <Key>
@@ -469,19 +491,9 @@
           <Property Name="IdTipoM" Type="Int32" />
           <Property Name="IdContacto" Type="Int32" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Contactos" Relationship="Self.FK__Movimient__IdCon__3C69FB99" FromRole="Movimientos" ToRole="Contactos" />
+          <NavigationProperty Name="Contactos" Relationship="Self.FK__Movimient__IdCon__46E78A0C" FromRole="Movimientos" ToRole="Contactos" />
           <NavigationProperty Name="Entradas_Salidas" Relationship="Self.FK__Entradas___IdMov__4222D4EF" FromRole="Movimientos" ToRole="Entradas_Salidas" />
-          <NavigationProperty Name="TiposMovimientos" Relationship="Self.FK__Movimient__IdTip__3D5E1FD2" FromRole="Movimientos" ToRole="TiposMovimientos" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="TiposMovimientos" Relationship="Self.FK__Movimient__IdTip__47DBAE45" FromRole="Movimientos" ToRole="TiposMovimientos" />
         </EntityType>
         <EntityType Name="TiposDocumentos">
           <Key>
@@ -489,7 +501,7 @@
           </Key>
           <Property Name="IdTipoD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Contactos" Relationship="Self.FK__Contactos__IdTip__2E1BDC42" FromRole="TiposDocumentos" ToRole="Contactos" />
+          <NavigationProperty Name="Contactos" Relationship="Self.FK__Contactos__IdTip__403A8C7D" FromRole="TiposDocumentos" ToRole="Contactos" />
         </EntityType>
         <EntityType Name="TiposMovimientos">
           <Key>
@@ -498,8 +510,8 @@
           <Property Name="IdTipoM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Movimiento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Movimientos" Relationship="Self.FK__Movimient__IdTip__3D5E1FD2" FromRole="TiposMovimientos" ToRole="Movimientos" />
-          <NavigationProperty Name="MovimientoESA" Relationship="BDMonlic1Model.FK__Movimient__IdTip__5EBF139D" FromRole="TiposMovimientos" ToRole="MovimientoESA" />
+          <NavigationProperty Name="MovimientoESA" Relationship="Self.FK__Movimient__IdTip__45F365D3" FromRole="TiposMovimientos" ToRole="MovimientoESA" />
+          <NavigationProperty Name="Movimientos" Relationship="Self.FK__Movimient__IdTip__47DBAE45" FromRole="TiposMovimientos" ToRole="Movimientos" />
         </EntityType>
         <EntityType Name="UnidadMedidas">
           <Key>
@@ -508,9 +520,9 @@
           <Property Name="IdUnidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Unidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Materiales" Relationship="Self.FK__Materiale__IdUni__38996AB5" FromRole="UnidadMedidas" ToRole="Materiales" />
+          <NavigationProperty Name="Materiales" Relationship="Self.FK__Materiale__IdUni__4316F928" FromRole="UnidadMedidas" ToRole="Materiales" />
         </EntityType>
-        <Association Name="FK__Ciudades__IdDepa__276EDEB3">
+        <Association Name="FK__Ciudades__IdDepa__3E52440B">
           <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="0..1" />
           <End Role="Ciudades" Type="Self.Ciudades" Multiplicity="*" />
           <ReferentialConstraint>
@@ -522,7 +534,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Contactos__IdCiu__2F10007B">
+        <Association Name="FK__Contactos__IdCiu__3F466844">
           <End Role="Ciudades" Type="Self.Ciudades" Multiplicity="0..1" />
           <End Role="Contactos" Type="Self.Contactos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -534,7 +546,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Contactos__IdTip__2E1BDC42">
+        <Association Name="FK__Contactos__IdTip__403A8C7D">
           <End Role="TiposDocumentos" Type="Self.TiposDocumentos" Multiplicity="0..1" />
           <End Role="Contactos" Type="Self.Contactos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -546,7 +558,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimient__IdCon__3C69FB99">
+        <Association Name="FK__Movimient__IdCon__440B1D61">
+          <End Role="Contactos" Type="Self.Contactos" Multiplicity="0..1" />
+          <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contactos">
+              <PropertyRef Name="IdContacto" />
+            </Principal>
+            <Dependent Role="MovimientoESA">
+              <PropertyRef Name="IdContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimient__IdCon__46E78A0C">
           <End Role="Contactos" Type="Self.Contactos" Multiplicity="0..1" />
           <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -582,7 +606,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Materiale__IdUni__38996AB5">
+        <Association Name="FK__Materiale__IdUni__4316F928">
           <End Role="UnidadMedidas" Type="Self.UnidadMedidas" Multiplicity="0..1" />
           <End Role="Materiales" Type="Self.Materiales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -594,7 +618,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Movimient__IdTip__3D5E1FD2">
+        <Association Name="FK_Table_1_Materiales">
+          <End Role="Materiales" Type="Self.Materiales" Multiplicity="0..1" />
+          <End Role="MovimientoESADet" Type="Self.MovimientoESADet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materiales">
+              <PropertyRef Name="IdMaterial" />
+            </Principal>
+            <Dependent Role="MovimientoESADet">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimient__IdTip__45F365D3">
+          <End Role="TiposMovimientos" Type="Self.TiposMovimientos" Multiplicity="0..1" />
+          <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposMovimientos">
+              <PropertyRef Name="IdTipoM" />
+            </Principal>
+            <Dependent Role="MovimientoESA">
+              <PropertyRef Name="IdTipoM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovimientoESADet_MovimientoESA">
+          <End Role="MovimientoESA" Type="Self.MovimientoESA" Multiplicity="0..1" />
+          <End Role="MovimientoESADet" Type="Self.MovimientoESADet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MovimientoESA">
+              <PropertyRef Name="IdMovimientoESA" />
+            </Principal>
+            <Dependent Role="MovimientoESADet">
+              <PropertyRef Name="IdMovimientoESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Movimient__IdTip__47DBAE45">
           <End Role="TiposMovimientos" Type="Self.TiposMovimientos" Multiplicity="0..1" />
           <End Role="Movimientos" Type="Self.Movimientos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -606,30 +666,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BDMonlic1Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BDMonlic1Entities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ciudades" EntityType="Self.Ciudades" />
           <EntitySet Name="Contactos" EntityType="Self.Contactos" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
           <EntitySet Name="Entradas_Salidas" EntityType="Self.Entradas_Salidas" />
           <EntitySet Name="Materiales" EntityType="Self.Materiales" />
+          <EntitySet Name="MovimientoESA" EntityType="Self.MovimientoESA" />
+          <EntitySet Name="MovimientoESADet" EntityType="Self.MovimientoESADet" />
           <EntitySet Name="Movimientos" EntityType="Self.Movimientos" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TiposDocumentos" EntityType="Self.TiposDocumentos" />
           <EntitySet Name="TiposMovimientos" EntityType="Self.TiposMovimientos" />
           <EntitySet Name="UnidadMedidas" EntityType="Self.UnidadMedidas" />
-          <AssociationSet Name="FK__Ciudades__IdDepa__276EDEB3" Association="Self.FK__Ciudades__IdDepa__276EDEB3">
+          <AssociationSet Name="FK__Ciudades__IdDepa__3E52440B" Association="Self.FK__Ciudades__IdDepa__3E52440B">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Ciudades" EntitySet="Ciudades" />
           </AssociationSet>
-          <AssociationSet Name="FK__Contactos__IdCiu__2F10007B" Association="Self.FK__Contactos__IdCiu__2F10007B">
+          <AssociationSet Name="FK__Contactos__IdCiu__3F466844" Association="Self.FK__Contactos__IdCiu__3F466844">
             <End Role="Ciudades" EntitySet="Ciudades" />
             <End Role="Contactos" EntitySet="Contactos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Contactos__IdTip__2E1BDC42" Association="Self.FK__Contactos__IdTip__2E1BDC42">
+          <AssociationSet Name="FK__Contactos__IdTip__403A8C7D" Association="Self.FK__Contactos__IdTip__403A8C7D">
             <End Role="TiposDocumentos" EntitySet="TiposDocumentos" />
             <End Role="Contactos" EntitySet="Contactos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdCon__3C69FB99" Association="Self.FK__Movimient__IdCon__3C69FB99">
+          <AssociationSet Name="FK__Movimient__IdCon__440B1D61" Association="Self.FK__Movimient__IdCon__440B1D61">
+            <End Role="Contactos" EntitySet="Contactos" />
+            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimient__IdCon__46E78A0C" Association="Self.FK__Movimient__IdCon__46E78A0C">
             <End Role="Contactos" EntitySet="Contactos" />
             <End Role="Movimientos" EntitySet="Movimientos" />
           </AssociationSet>
@@ -641,11 +706,23 @@
             <End Role="Movimientos" EntitySet="Movimientos" />
             <End Role="Entradas_Salidas" EntitySet="Entradas_Salidas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Materiale__IdUni__38996AB5" Association="Self.FK__Materiale__IdUni__38996AB5">
+          <AssociationSet Name="FK__Materiale__IdUni__4316F928" Association="Self.FK__Materiale__IdUni__4316F928">
             <End Role="UnidadMedidas" EntitySet="UnidadMedidas" />
             <End Role="Materiales" EntitySet="Materiales" />
           </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdTip__3D5E1FD2" Association="Self.FK__Movimient__IdTip__3D5E1FD2">
+          <AssociationSet Name="FK_Table_1_Materiales" Association="Self.FK_Table_1_Materiales">
+            <End Role="Materiales" EntitySet="Materiales" />
+            <End Role="MovimientoESADet" EntitySet="MovimientoESADet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimient__IdTip__45F365D3" Association="Self.FK__Movimient__IdTip__45F365D3">
+            <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
+            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovimientoESADet_MovimientoESA" Association="Self.FK_MovimientoESADet_MovimientoESA">
+            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
+            <End Role="MovimientoESADet" EntitySet="MovimientoESADet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Movimient__IdTip__47DBAE45" Association="Self.FK__Movimient__IdTip__47DBAE45">
             <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
             <End Role="Movimientos" EntitySet="Movimientos" />
           </AssociationSet>
@@ -658,47 +735,30 @@
             <Parameter Name="IdCiudad" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="estado_ciudad">
-          <Parameter Name="Idciudad" Mode="In" Type="Int32" />
+            <Parameter Name="Idciudad" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="estado_contacto">
-          <Parameter Name="Idcontacto" Mode="In" Type="Int32" />
+            <Parameter Name="Idcontacto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="estado_material">
-          <Parameter Name="Idmaterial" Mode="In" Type="Int32" />
+            <Parameter Name="Idmaterial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="estado_Medida">
-          <Parameter Name="IdUnidad" Mode="In" Type="Int32" />
+            <Parameter Name="IdUnidad" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
+          <FunctionImport Name="StockManage">
+            <Parameter Name="idTipoM" Mode="In" Type="Int32" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="idMaterial" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
+          <FunctionImport Name="StockManage2">
+            <Parameter Name="idTipoM" Mode="In" Type="Int32" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="idMaterial" Mode="In" Type="Int32" />
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="Precio" Mode="In" Type="Int32" />
+            <Parameter Name="IdContacto" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BDMonlic1Model.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BDMonlic1Model.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="unidad_activa" ReturnType="Collection(BDMonlic1Model.unidad_activa_Result)" />
           <FunctionImport Name="unidad_inactiva" ReturnType="Collection(BDMonlic1Model.unidad_inactiva_Result)" />
           <FunctionImport Name="validar_contactos">
@@ -709,7 +769,7 @@
             <Parameter Name="IdCiudad" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="validarrepetidos">
-          <Parameter Name="Unidad" Mode="In" Type="String" />
+            <Parameter Name="Unidad" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="validarrepetidos_material">
             <Parameter Name="Material" Mode="In" Type="String" />
@@ -725,44 +785,7 @@
             <Parameter Name="Idtipod" Mode="In" Type="Int32" />
             <Parameter Name="IdCiudad" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="MovimientoESA" EntityType="BDMonlic1Model.MovimientoESA" />
-          <AssociationSet Name="FK__Movimient__IdCon__5DCAEF64" Association="BDMonlic1Model.FK__Movimient__IdCon__5DCAEF64">
-            <End Role="Contactos" EntitySet="Contactos" />
-            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdMat__5FB337D6" Association="BDMonlic1Model.FK__Movimient__IdMat__5FB337D6">
-            <End Role="Materiales" EntitySet="Materiales" />
-            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Movimient__IdTip__5EBF139D" Association="BDMonlic1Model.FK__Movimient__IdTip__5EBF139D">
-            <End Role="TiposMovimientos" EntitySet="TiposMovimientos" />
-            <End Role="MovimientoESA" EntitySet="MovimientoESA" />
-          </AssociationSet>
-          <FunctionImport Name="StockManage">
-            <Parameter Name="idTipoM" Mode="In" Type="Int32" />
-            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
-            <Parameter Name="idMaterial" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="StockManage2">
-            <Parameter Name="idTipoM" Mode="In" Type="Int32" />
-            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
-            <Parameter Name="idMaterial" Mode="In" Type="Int32" />
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="Precio" Mode="In" Type="Int32" />
-            <Parameter Name="IdContacto" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="unidad_activa_Result">
           <Property Type="Int32" Name="IdUnidad" Nullable="false" />
           <Property Type="String" Name="Unidad" Nullable="true" MaxLength="30" />
@@ -773,64 +796,12 @@
           <Property Type="String" Name="Unidad" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="Estado" Nullable="false" MaxLength="30" />
         </ComplexType>
-        <EntityType Name="MovimientoESA">
-          <Key>
-            <PropertyRef Name="IdMovimientoESA" />
-          </Key>
-          <Property Name="IdMovimientoESA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <Property Name="Precio" Type="Int32" />
-          <Property Name="Cantidad" Type="Int32" />
-          <Property Name="IdMaterial" Type="Int32" />
-          <Property Name="IdTipoM" Type="Int32" />
-          <Property Name="IdContacto" Type="Int32" />
-          <Property Name="Estado" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Contactos" Relationship="BDMonlic1Model.FK__Movimient__IdCon__5DCAEF64" FromRole="MovimientoESA" ToRole="Contactos" />
-          <NavigationProperty Name="Materiales" Relationship="BDMonlic1Model.FK__Movimient__IdMat__5FB337D6" FromRole="MovimientoESA" ToRole="Materiales" />
-          <NavigationProperty Name="TiposMovimientos" Relationship="BDMonlic1Model.FK__Movimient__IdTip__5EBF139D" FromRole="MovimientoESA" ToRole="TiposMovimientos" />
-        </EntityType>
-        <Association Name="FK__Movimient__IdCon__5DCAEF64">
-          <End Type="BDMonlic1Model.Contactos" Role="Contactos" Multiplicity="0..1" />
-          <End Type="BDMonlic1Model.MovimientoESA" Role="MovimientoESA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contactos">
-              <PropertyRef Name="IdContacto" />
-            </Principal>
-            <Dependent Role="MovimientoESA">
-              <PropertyRef Name="IdContacto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Movimient__IdMat__5FB337D6">
-          <End Type="BDMonlic1Model.Materiales" Role="Materiales" Multiplicity="0..1" />
-          <End Type="BDMonlic1Model.MovimientoESA" Role="MovimientoESA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Materiales">
-              <PropertyRef Name="IdMaterial" />
-            </Principal>
-            <Dependent Role="MovimientoESA">
-              <PropertyRef Name="IdMaterial" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Movimient__IdTip__5EBF139D">
-          <End Type="BDMonlic1Model.TiposMovimientos" Role="TiposMovimientos" Multiplicity="0..1" />
-          <End Type="BDMonlic1Model.MovimientoESA" Role="MovimientoESA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TiposMovimientos">
-              <PropertyRef Name="IdTipoM" />
-            </Principal>
-            <Dependent Role="MovimientoESA">
-              <PropertyRef Name="IdTipoM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BDMonlic1ModelStoreContainer" CdmEntityContainer="BDMonlic1Entities">
+        <EntityContainerMapping StorageEntityContainer="BDMonlic1ModelStoreContainer" CdmEntityContainer="BDMonlic1Entities2">
           <EntitySetMapping Name="Ciudades">
             <EntityTypeMapping TypeName="BDMonlic1Model.Ciudades">
               <MappingFragment StoreEntitySet="Ciudades">
@@ -888,6 +859,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MovimientoESA">
+            <EntityTypeMapping TypeName="BDMonlic1Model.MovimientoESA">
+              <MappingFragment StoreEntitySet="MovimientoESA">
+                <ScalarProperty Name="IdMovimientoESA" ColumnName="IdMovimientoESA" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdTipoM" ColumnName="IdTipoM" />
+                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="SubTotalGeneral" ColumnName="SubTotalGeneral" />
+                <ScalarProperty Name="CargosGenerales" ColumnName="CargosGenerales" />
+                <ScalarProperty Name="DescuentosGenerales" ColumnName="DescuentosGenerales" />
+                <ScalarProperty Name="TotalGeneral" ColumnName="TotalGeneral" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovimientoESADet">
+            <EntityTypeMapping TypeName="BDMonlic1Model.MovimientoESADet">
+              <MappingFragment StoreEntitySet="MovimientoESADet">
+                <ScalarProperty Name="IdMovimientoESADet" ColumnName="IdMovimientoESADet" />
+                <ScalarProperty Name="IdMovimientoESA" ColumnName="IdMovimientoESA" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Cargos" ColumnName="Cargos" />
+                <ScalarProperty Name="Descuentos" ColumnName="Descuentos" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Movimientos">
             <EntityTypeMapping TypeName="BDMonlic1Model.Movimientos">
               <MappingFragment StoreEntitySet="Movimientos">
@@ -896,17 +896,6 @@
                 <ScalarProperty Name="IdTipoM" ColumnName="IdTipoM" />
                 <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BDMonlic1Model.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -941,30 +930,8 @@
           <FunctionImportMapping FunctionImportName="estado_contacto" FunctionName="BDMonlic1Model.Store.estado_contacto" />
           <FunctionImportMapping FunctionImportName="estado_material" FunctionName="BDMonlic1Model.Store.estado_material" />
           <FunctionImportMapping FunctionImportName="estado_Medida" FunctionName="BDMonlic1Model.Store.estado_Medida" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BDMonlic1Model.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BDMonlic1Model.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BDMonlic1Model.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BDMonlic1Model.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BDMonlic1Model.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="BDMonlic1Model.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BDMonlic1Model.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BDMonlic1Model.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BDMonlic1Model.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="StockManage" FunctionName="BDMonlic1Model.Store.StockManage" />
+          <FunctionImportMapping FunctionImportName="StockManage2" FunctionName="BDMonlic1Model.Store.StockManage2" />
           <FunctionImportMapping FunctionImportName="unidad_activa" FunctionName="BDMonlic1Model.Store.unidad_activa">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BDMonlic1Model.unidad_activa_Result">
@@ -987,22 +954,6 @@
           <FunctionImportMapping FunctionImportName="validarrepetidos" FunctionName="BDMonlic1Model.Store.validarrepetidos" />
           <FunctionImportMapping FunctionImportName="validarrepetidos_material" FunctionName="BDMonlic1Model.Store.validarrepetidos_material" />
           <FunctionImportMapping FunctionImportName="validarrepetidoscontactos" FunctionName="BDMonlic1Model.Store.validarrepetidoscontactos" />
-          <EntitySetMapping Name="MovimientoESA">
-            <EntityTypeMapping TypeName="BDMonlic1Model.MovimientoESA">
-              <MappingFragment StoreEntitySet="MovimientoESA">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
-                <ScalarProperty Name="IdTipoM" ColumnName="IdTipoM" />
-                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="IdMovimientoESA" ColumnName="IdMovimientoESA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="StockManage" FunctionName="BDMonlic1Model.Store.StockManage" />
-          <FunctionImportMapping FunctionImportName="StockManage2" FunctionName="BDMonlic1Model.Store.StockManage2" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1020,35 +971,10 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram DiagramId="4894ee65c7b34399b4059e4ad8fb35c1" Name="Diagram1">
-        <EntityTypeShape EntityType="BDMonlic1Model.Ciudades" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.Contactos" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.Departamentos" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.Entradas_Salidas" Width="1.5" PointX="12.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.Materiales" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.Movimientos" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.TiposDocumentos" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.TiposMovimientos" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.UnidadMedidas" Width="1.5" PointX="8.25" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMonlic1Model.MovimientoESA" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Ciudades__IdDepa__276EDEB3" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Contactos__IdCiu__2F10007B" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Contactos__IdTip__2E1BDC42" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Movimient__IdCon__3C69FB99" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Entradas___IdMat__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Entradas___IdMov__4222D4EF" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Materiale__IdUni__38996AB5" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Movimient__IdTip__3D5E1FD2" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Movimient__IdCon__5DCAEF64" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Movimient__IdMat__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMonlic1Model.FK__Movimient__IdTip__5EBF139D" ManuallyRouted="false" />
-      </Diagram>
-    </Diagrams>
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>

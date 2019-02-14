@@ -17,8 +17,8 @@ namespace Proyecto_Monlic.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Contactos()
         {
-            this.Movimientos = new HashSet<Movimientos>();
             this.MovimientoESA = new HashSet<MovimientoESA>();
+            this.Movimientos = new HashSet<Movimientos>();
         }
     
         public int IdContacto { get; set; }
@@ -32,8 +32,8 @@ namespace Proyecto_Monlic.Models
         public virtual Ciudades Ciudades { get; set; }
         public virtual TiposDocumentos TiposDocumentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Movimientos> Movimientos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovimientoESA> MovimientoESA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Movimientos> Movimientos { get; set; }
     }
 }

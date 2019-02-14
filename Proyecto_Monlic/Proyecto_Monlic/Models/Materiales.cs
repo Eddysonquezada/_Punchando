@@ -18,7 +18,7 @@ namespace Proyecto_Monlic.Models
         public Materiales()
         {
             this.Entradas_Salidas = new HashSet<Entradas_Salidas>();
-            this.MovimientoESA = new HashSet<MovimientoESA>();
+            this.MovimientoESADet = new HashSet<MovimientoESADet>();
         }
     
         public int IdMaterial { get; set; }
@@ -33,6 +33,6 @@ namespace Proyecto_Monlic.Models
         public virtual ICollection<Entradas_Salidas> Entradas_Salidas { get; set; }
         public virtual UnidadMedidas UnidadMedidas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MovimientoESA> MovimientoESA { get; set; }
+        public virtual ICollection<MovimientoESADet> MovimientoESADet { get; set; }
     }
 }
