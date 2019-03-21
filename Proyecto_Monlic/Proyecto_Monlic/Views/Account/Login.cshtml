@@ -1,0 +1,71 @@
+﻿
+
+@using Proyecto_Monlic.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Iniciar sesión";
+}
+<link rel="stylesheet" href="~/Content/css/style.css" />
+
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="box">
+        <h2>Inicio de Sesión</h2>
+        <form>
+
+
+
+
+
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="inputBox">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="inputBox">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger"})
+            </div>
+            <div class="check">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    <input type="submit" value="Iniciar sesión" class="btn btn-default" />
+                </div>
+            </div>
+
+            <div>
+                @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+            </div>
+
+        </form>
+    </div>
+
+
+
+
+    @*<p>
+            @Html.ActionLink("Registrar como nuevo usuario", "Register")
+        </p>
+        Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña*@
+
+}
+
+@*<div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

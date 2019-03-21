@@ -1,0 +1,86 @@
+﻿@Html.Partial("_Navegation")
+
+<div class="col-md-7 col-md-offset-4 ">
+    @model IEnumerable<Proyecto_Monlic.Models.Contactos>
+
+
+    @{
+        ViewBag.Title = "Contactos";
+    }
+    <br /><br /><br /><br />
+    <p>
+        <a class="btn btn-info" @Html.ActionLink("Nuevo Contacto", "Create")
+    </p>
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Contacto)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Telefono)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ciudades.Ciudad)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Estado)
+                                </th>
+
+
+                                <th>Acciones    </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Contacto)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telefono)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ciudades.Ciudad)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Estado)
+                                    </td>
+                                    <td>
+                                        <form method="post" action='@Url.Action("Estado", "UnidadMedidas",new { id = item.IdContacto })'>
+                                            <input type="submit" value="Estado" class="btn btn-danger" onclick="cam()" />
+                                            @Html.ActionLink("Editar", "Edit", new { id = item.IdContacto }, new { @class = "btn btn-success" })
+
+                                            @Html.AntiForgeryToken()
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+
+
+                        <tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <script>
+                function cam() {
+
+                    swal("Esta seguro de que desea cambiar de estado");
+                }
+
+            </script>
+
+
+        </div>
+    </div>
+</div>
