@@ -1,0 +1,14 @@
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\bin\Debug\netcoreapp2.2\Cabanas.API.deps.json
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\bin\Debug\netcoreapp2.2\Cabanas.API.runtimeconfig.json
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\bin\Debug\netcoreapp2.2\Cabanas.API.runtimeconfig.dev.json
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\bin\Debug\netcoreapp2.2\Cabanas.API.dll
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\bin\Debug\netcoreapp2.2\Cabanas.API.pdb
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.csprojAssemblyReference.cache
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.csproj.CoreCompileInputs.cache
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.RazorAssemblyInfo.cache
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.RazorAssemblyInfo.cs
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.AssemblyInfoInputs.cache
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.AssemblyInfo.cs
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.RazorTargetAssemblyInfo.cache
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.dll
+D:\_DESARROLLO\_Punchando\NetCoreRESTWorkshop\Net Core Workshop\src\Services\Cabanas\Cabanas.API\obj\Debug\netcoreapp2.2\Cabanas.API.pdb

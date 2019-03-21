@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/XAMAGRAM/_RecursosDev/1.AnexGram/src/apis/Core.Api/Core.Api.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
